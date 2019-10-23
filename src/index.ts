@@ -1,5 +1,6 @@
 import * as os from 'os';
 import * as util from 'util';
+import * as path from 'path';
 
 import * as toolCache from '@actions/tool-cache';
 import * as core from '@actions/core';
@@ -26,11 +27,12 @@ async function downloadPulumi(version: string) {
         try {
             downloadPath = await toolCache.downloadTool(getDownloadURL(version));
         } catch (exception) {
-            throw new Error(util.format("Failed to download Helm from location ", getDownloadURL(version)));
+            console.log(exception)
+            throw new Error(util.format("Failed to download Pulumi from location ", getDownloadURL(version)));
         }
 
         const extractedPath = await toolCache.extractTar(downloadPath);
-        cachedToolpath = await toolCache.cacheDir(extractedPath, 'pulumi', version);
+        cachedToolpath = await toolCache.cacheDir(path.join(extractedPath, 'pulumi'), 'pulumi', version);
     }
 
     core.addPath(cachedToolpath)

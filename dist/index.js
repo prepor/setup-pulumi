@@ -2895,6 +2895,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var os = __importStar(__webpack_require__(87));
 var util = __importStar(__webpack_require__(669));
+var path = __importStar(__webpack_require__(622));
 var toolCache = __importStar(__webpack_require__(533));
 var core = __importStar(__webpack_require__(470));
 function getDownloadURL(version) {
@@ -2926,11 +2927,12 @@ function downloadPulumi(version) {
                     return [3 /*break*/, 4];
                 case 3:
                     exception_1 = _a.sent();
-                    throw new Error(util.format("Failed to download Helm from location ", getDownloadURL(version)));
+                    console.log(exception_1);
+                    throw new Error(util.format("Failed to download Pulumi from location ", getDownloadURL(version)));
                 case 4: return [4 /*yield*/, toolCache.extractTar(downloadPath)];
                 case 5:
                     extractedPath = _a.sent();
-                    return [4 /*yield*/, toolCache.cacheDir(extractedPath, 'pulumi', version)];
+                    return [4 /*yield*/, toolCache.cacheDir(path.join(extractedPath, 'pulumi'), 'pulumi', version)];
                 case 6:
                     cachedToolpath = _a.sent();
                     _a.label = 7;
